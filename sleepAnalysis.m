@@ -1,33 +1,23 @@
 %% DEVELOPMENT NOTES
 % mat2wfdb used to write MATLAB variable into WDFB record file
 
-% Known Variables
-Fs = 250; % samples (ticks)/second
-
+% TODO: write helper function to parse comments for numbers 1-4, and 'R'.
 %% Loading signal data from MIT-BIH slpdb
 
-% Read EEG signal (3 = 3rd column). NOTE: this takes time b/c 250 ticks/sec
-% For now, read 7500 samples (first 30 seconds)
+% Read EEG signal (3 = 3rd column).
 [tm,sleepStages] = rdsamp('slpdb/slp01a', 3);
 
-%% Read annotation
-
-% ann: Nx1 integer vector of the annotation locations in samples
-%        with respect to the beginning of the record. 
-%        To convert this vector to a string of time stamps see WFDBTIME.
-% anntype: Nx1 character vector describing the annotation types.
-%        For a list of standard annotation codes used by PhyioNet, see:
-%              http://www.physionet.org/physiobank/annotations.shtml
-% subtype: Nx1 integer vector describing annotation subtype.
-% chan: chan
-% num: Nx1 integer vector describing annotation NUM.
-% comments: Nx1 cell of strings describing annotation comments.
-
-% Read the annotation file. Each value represents a 30 second interval
+% Read the annotation file. Each value represents a 30 second interval.
 [ann,anntype,subtype,chan,num,comments] = rdann('slpdb/slp01a', 'st');
 
-% TODO: write helper function to parse comments to get numbers 1-4, and 'R'
+% Get the sleep stages only.
+classifierArr = getSleepStages(comments);
 
+Fs = 250; % samples (ticks)/second
+windowDuration = 30; % seconds
+
+% Split the entire EEG signal recording into 30 second recordings.
+windowedArr = getWindows(sleepStages, 30, Fs);
 %% Plotting the data
 dt = 1/Fs;
 t = 0:dt:30;
