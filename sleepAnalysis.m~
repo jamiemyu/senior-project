@@ -25,35 +25,30 @@ df = 1/30;
 freq = -Fs/2:df:Fs/2;
 
 %% Test plots
-% Test plotting an interval classified as Sleep Stage 1
-% We can find a demo sleep stage 1 interval by searching the classifierArr
-% For an index labeled as "1".
-sleepStage1Index = find([classifierArr{:}] == 1);
-sleepStage1 = windowedArr{sleepStage1Index};
-tSleepStage1 = tArr{sleepStage1Index};
-
 % Test plotting an interval classified as Sleep Stage 4
+% We can find a sleep stage 4 interval by searching the classifierArr
+% For an index labeled as "4".
 sleepStage4Index = find([classifierArr{:}] == 4);
 sleepStage4 = windowedArr{sleepStage4Index};
 tSleepStage4 = tArr{sleepStage4Index}; % Associated time values
 
 fig1 = figure(1);
 subplot(2,2,1)
-plot(tSleepStage1, sleepStage1);
-xlabel('Sample (250 samples/sec)')
-ylabel('EEG Signal')
-xlim([tSleepStage1(1) tSleepStage1(end)]);
-set(gcf, 'Position', [0, 210, 1400, 600])
-title('Sleep Stage 1, Time Domain');
-grid on
-
-subplot(2,2,2)
 plot(tSleepStage4, sleepStage4);
 xlabel('Sample (250 samples/sec)')
 ylabel('EEG Signal')
-xlim([tSleepStage4(1) tSleepStage4(end)]);
-set(gcf, 'Position', [0, 210, 1440, 800])
-title('Sleep Stage 4, Time Domain');
+xlim([0 7500]);
+set(gcf, 'Position', [0, 210, 1400, 600])
+title('EEG Signal Sample per Sample');
 grid on
+% subplot(2,1,2)
+% plot(freq(1:end-1), DFT4)
+% xlim([-10 10])
+% grid on
+
+% Test plotting an interval classified as Sleep Stage 1
+sleepStage1Index = find([classifierArr{:}] == 1);
+sleepStage1 = windowedArr{sleepStage1Index};
+tSleepStage1 = tArr{sleepStage1Index};
 
 
