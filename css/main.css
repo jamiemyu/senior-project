@@ -1,0 +1,9 @@
+.chart {
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+}
+
+#chart_div {
+    display: inline-block;
+}
