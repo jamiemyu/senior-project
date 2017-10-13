@@ -1,5 +1,5 @@
 function Hd = alphaFilter(Fs)
-% Specify a passband from 3-8 Hz.
+% Specify a passband from 8-13 Hz.
 Wp = [8 13]/(Fs/2);
 
 % Set the stopband width to 0.5 Hz on both sides of the passband.
