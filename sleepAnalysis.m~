@@ -33,9 +33,6 @@ classifierAnnotations = getSleepStages(comments);
 Fs = 250;  % samples (ticks)/second
 dt = 1/Fs; % time resolution
 
-highPassCutoff = 0.5; % Hz
-lowPassCutoff  = 50;  % Hz
-
 filterHd = bandPassFilter(Fs);
 filteredData = filter(filterHd, rawData);
 
@@ -43,6 +40,8 @@ filteredData = filter(filterHd, rawData);
 windowDuration = 30; % seconds
 % Split the entire EEG signal recording into 30 second recordings.
 [tArr, dataIntervals] = getWindows(filteredData, windowDuration, Fs);
+
+%{
 
 % Find index where sleep stage is classified as 3
 sleepStage3Index = find([classifierAnnotations{:}] == 3);
@@ -58,8 +57,8 @@ freq = (-Fs/2:dF:Fs/2 - dF)';
 sleepStage3 = dataIntervals{sleepStage3Index(1)};
 sampleDFT3 = abs(fftshift(fft(sleepStage3*dt)));
 totalAverage = mean(sampleDFT3(find(freq == 0.5):find(freq == 40)));
-lowFreqAverage = mean(sampleDFT3(find(freq == 0.5):find(freq == 4)));
-highFreqAverage = mean(sampleDFT3(find(freq == 5):find(freq == 10)));
+lowFreqAverage = mean(sampleDFT3(find(freq == 0.5):find(freq == 3)));
+highFreqAverage = mean(sampleDFT3(find(freq == 5):find(freq == 15)));
 figure;
 plot(freq,sampleDFT)
 xlim([0 55])
@@ -70,19 +69,57 @@ tSleepStage1 = tArr{sleepStage1Index(5)}; % Associated time values
 sleepStage1 = dataIntervals{sleepStage1Index(5)};
 sampleDFT1 = abs(fftshift(fft(sleepStage1*dt)));
 totalAverage1 = mean(sampleDFT1(find(freq == 0.5):find(freq == 40)));
-lowFreqAverage1 = mean(sampleDFT1(find(freq == 0.5):find(freq == 4)));
-highFreqAverage1 = mean(sampleDFT1(find(freq == 5):find(freq == 10)));
+lowFreqAverage1 = mean(sampleDFT1(find(freq == 0.5):find(freq == 3)));
+highFreqAverage1 = mean(sampleDFT1(find(freq == 5):find(freq == 15)));
 figure;
 plot(freq,sampleDFT1)
 xlim([0 55])
 title('Stage 1')
 
-%{
-for i = 1:length(dataIntervals);
+%}
+
+% Find all windows that are classified as stage 1 sleep
+sleepStage1Index = find([classifierAnnotations{:}] == 1);
+% Initialize variables used in for loop
+% Stores average power using specified cutoff values
+totalAverage1 = zeros(1,length(sleepStage1Index));
+totalAverageRange = [0.5 40];
+% Stores average power from 0.5 - 3 Hz
+lowFreqAverage1 = zeros(1,length(sleepStage1Index));
+lowFreqAverageRange = [0.5 3];
+% Stores average power from 5 - 15 Hz
+highFreqAverage1 = zeros(1,length(sleepStage1Index));
+highFreqAverageRange = [5 15];
+% Stores ratio of low freq average power to total average power
+lowFreqPowerRatio1 = zeros(1,length(sleepStage1Index));
+% Stores ratio of high freq average power to total average power
+highFreqPowerRatio1 = zeros(1,length(sleepStage1Index));
+% Loop through all sleep stage 1 data
+for i = 1:length(sleepStage1Index);
+    % Load time vector according to indexed window
+    tSleepStage1 = tArr{sleepStage1Index(i)};
+    % Total timespan of recorded data
+    T0 = length(tSleepStage1)/Fs;
+    % Frequency resolution - determined by T0
+    dF = 1/T0;
+    % Time vector of sampled data
+    time = (0:dt:T0 - dt)';
+    % Freq data of DFT result
+    freq = (-Fs/2:dF:Fs/2 - dF)';
+    % Load EEG data in time domain according to indexed window
+    sleepDataStage1 = dataIntervals{sleepStage1Index(i)};
+    % Use Fast Fourier Transform to transform data to frequency domain
+    DataInFreqDomain1 = abs(fftshift(fft(sleepDataStage1*dt)));
+    % Save average power of signal in 3 different frequency ranges
+    totalAverage1(i) = mean(DataInFreqDomain1(find(freq == totalAverageRange(1)):find(freq == totalAverageRange(2))));
+    lowFreqAverage1(i) = mean(DataInFreqDomain1(find(freq == lowFreqAverageRange(1)):find(freq == lowFreqAverageRange(2))));
+    highFreqAverage1(i) = mean(DataInFreqDomain1(find(freq == highFreqAverageRange(1)):find(freq == highFreqAverageRange(2))));
     
     
 end
-%}
+
+lowFreqPowerRatio1 = lowFreqAverage1 
+
 
 %% Compare sleep stages through plotting.
 fig1 = figure(1);
