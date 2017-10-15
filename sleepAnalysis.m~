@@ -30,27 +30,20 @@
 classifierAnnotations = getSleepStages(comments);
 
 %% PRE-PROCESSING
+Fs = 250;  % samples (ticks)/second
 
-dt = 1 / 
-Fs = 250; % samples (ticks)/second
 highPassCutoff = 0.5; % Hz
 lowPassCutoff  = 50;  % Hz
 
-% Filter the data set in frequency domain using a bandpass filter 0.5 Hz - 50 Hz
-freqDomainData = abs(fftshift(fft(rawData*dt)));
-bandpassFilter = zeros(length(freqDomainData),1);
-bandpassFilter(Fs*highPassCutoff:Fs*lowPassCutoff) = 1;
-filteredDataFreqDomain = bandpassFilter .* freqDomainData;
-filteredData = ifftshift(ifft(filteredDataFreqDomain));
+filterHd = bandPassFilter(Fs);
+filteredData = filter(filterHd, rawData);
 
 % Specify length of window to segment the data
 windowDuration = 30; % seconds
 % Split the entire EEG signal recording into 30 second recordings.
-% Do this for each type of filtered data.
-[tArr, alphaWindows] = getWindows(alphaFilteredData, windowDuration, Fs);
-[~, betaWindows] = getWindows(betaFilteredData, windowDuration, Fs);
-[~, deltaWindows] = getWindows(deltaFilteredData, windowDuration, Fs);
-[~, thetaWindows] = getWindows(thetaFilteredData, windowDuration, Fs);
+[tArr, dataIntervals] = getWindows(filteredData, windowDuration, Fs);
+
+%{
 
 % Test plotting an interval classified as Sleep Stage 2
 % We can find a demo sleep stage 2 interval by searching the classifierArr
@@ -63,15 +56,7 @@ sleepStage3InBeta = betaWindows{sleepStage3Index(1)};
 sleepStage3InDelta = deltaWindows{sleepStage3Index(1)};
 sleepStage3InTheta = thetaWindows{sleepStage3Index(1)};
 
-% Calculate specifications for frequency domain.
-dF = Fs/length(tSleepStage3);       
-f = -Fs/2:dF:Fs/2-dF;
-
-% Calculate the discrete fourier transform of each window
-DFT2Alpha = abs(fftshift(fft(sleepStage3InAlpha)));
-DFT2Beta = abs(fftshift(fft(sleepStage3InBeta)));
-DFT2Delta = abs(fftshift(fft(sleepStage3InDelta)));
-DFT2Theta = abs(fftshift(fft(sleepStage3InTheta)));
+%}
 
 %% Compare sleep stages through plotting.
 fig1 = figure(1);

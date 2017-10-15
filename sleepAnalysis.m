@@ -31,25 +31,24 @@ classifierAnnotations = getSleepStages(comments);
 
 %% PRE-PROCESSING
 Fs = 250;  % samples (ticks)/second
+freq = (-Fs/2:dF:Fs/2 - dF)';
+highPassCutoff = 0.5; % Hz
+lowPassCutoff  = 50;  % Hz
+
+filterHd = bandPassFilter(Fs);
+filteredData = filter(filterHd, rawData);
+
+% Specify length of window to segment the data
+windowDuration = 30; % seconds
+% Split the entire EEG signal recording into 30 second recordings.
+[tArr, dataIntervals] = getWindows(filteredData, windowDuration, Fs);
+
+
 dt = 1/Fs; % time resolution
 T0 = length(rawData)/Fs;
 dF = 1/T0;
 time = (0:dt:T0 - dt)';
 freq = (-Fs/2:dF:Fs/2 - dF)';
-highPassCutoff = 0.5; % Hz
-lowPassCutoff  = 50;  % Hz
-
-% Filter the data set in frequency domain using a bandpass filter 0.5 Hz - 50 Hz
-freqDomainData = abs(fftshift(fft(rawData*dt)));
-bandpassFilter = zeros(length(freqDomainData),1);
-bandpassFilter(Fs*highPassCutoff:Fs*lowPassCutoff) = 1;
-filteredDataFreqDomain = bandpassFilter .* freqDomainData;
-filteredData = ifftshift(ifft(filteredDataFreqDomain));
-
-% Specify length of window to segment the data
-windowDuration = 30; % seconds
-% Split the entire EEG signal recording into 30 second recordings.
-[tArr, alphaWindows] = getWindows(filteredData, windowDuration, Fs);
 
 %{
 
