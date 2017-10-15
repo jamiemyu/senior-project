@@ -31,7 +31,8 @@ classifierAnnotations = getSleepStages(comments);
 
 %% PRE-PROCESSING
 Fs = 250;  % samples (ticks)/second
-freq = (-Fs/2:dF:Fs/2 - dF)';
+dt = 1/Fs; % time resolution
+
 highPassCutoff = 0.5; % Hz
 lowPassCutoff  = 50;  % Hz
 
@@ -43,26 +44,44 @@ windowDuration = 30; % seconds
 % Split the entire EEG signal recording into 30 second recordings.
 [tArr, dataIntervals] = getWindows(filteredData, windowDuration, Fs);
 
-
+% Find index where sleep stage is classified as 3
+sleepStage3Index = find([classifierAnnotations{:}] == 3);
+tSleepStage3 = tArr{sleepStage3Index(1)}; % Associated time values
 dt = 1/Fs; % time resolution
-T0 = length(rawData)/Fs;
+T0 = length(tSleepStage3)/Fs;
 dF = 1/T0;
 time = (0:dt:T0 - dt)';
 freq = (-Fs/2:dF:Fs/2 - dF)';
 
+
+% TESTING DFT FOR STAGE 1 AND 3
+sleepStage3 = dataIntervals{sleepStage3Index(1)};
+sampleDFT3 = abs(fftshift(fft(sleepStage3*dt)));
+totalAverage = mean(sampleDFT3(find(freq == 0.5):find(freq == 40)));
+lowFreqAverage = mean(sampleDFT3(find(freq == 0.5):find(freq == 4)));
+highFreqAverage = mean(sampleDFT3(find(freq == 5):find(freq == 15)));
+figure;
+plot(freq,sampleDFT)
+xlim([0 55])
+title('Stage 3')
+
+sleepStage1Index = find([classifierAnnotations{:}] == 1);
+tSleepStage1 = tArr{sleepStage1Index(5)}; % Associated time values
+sleepStage1 = dataIntervals{sleepStage1Index(5)};
+sampleDFT1 = abs(fftshift(fft(sleepStage1*dt)));
+totalAverage1 = mean(sampleDFT1(find(freq == 0.5):find(freq == 40)));
+lowFreqAverage1 = mean(sampleDFT1(find(freq == 0.5):find(freq == 4)));
+highFreqAverage1 = mean(sampleDFT1(find(freq == 5):find(freq == 15)));
+figure;
+plot(freq,sampleDFT1)
+xlim([0 55])
+title('Stage 1')
+
 %{
-
-% Test plotting an interval classified as Sleep Stage 2
-% We can find a demo sleep stage 2 interval by searching the classifierArr
-% For an index labeled as "2".
-sleepStage3Index = find([classifierAnnotations{:}] == 3);
-tSleepStage3 = tArr{sleepStage3Index(1)}; % Associated time values
-
-sleepStage3InAlpha = alphaWindows{sleepStage3Index(1)};
-sleepStage3InBeta = betaWindows{sleepStage3Index(1)};
-sleepStage3InDelta = deltaWindows{sleepStage3Index(1)};
-sleepStage3InTheta = thetaWindows{sleepStage3Index(1)};
-
+for i = 1:length(dataIntervals);
+    
+    
+end
 %}
 
 %% Compare sleep stages through plotting.

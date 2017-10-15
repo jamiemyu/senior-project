@@ -1,6 +1,6 @@
 function Hd = bandPassFilter(Fs)
-% Specify a passband from 0.75-50 Hz.
-Wp = [0.75 50]/(Fs/2);
+% Specify a passband from 0.75-40 Hz.
+Wp = [0.75 40]/(Fs/2);
 
 % Set the stopband width on both sides of the passband.
 Ws = [0.3 51]/(Fs/2);
