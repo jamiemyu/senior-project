@@ -6,6 +6,7 @@
     <title>Sleep State Classifier Project</title>
     
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <!--Load the AJAX API-->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -13,9 +14,29 @@
 </head>
 <body>
     <div id="text_div">
-        <h1>Demonstrate MATLAB execution</h1>
+        <h3>Sleep State Classifier</h3>
+        <div class="file-upload">
+          <div class="file-select">
+            <div class="file-select-button" id="fileName">Choose File</div>
+            <div class="file-select-name" id="noFile">No file chosen...</div> 
+            <input type="file" name="chooseFile" id="chooseFile">
+          </div>
+        </div>
+        <script>
+            $("#chooseFile").bind("change", function() {
+              var filename = $("#chooseFile").val();
+              if (/^\s*$/.test(filename)) {
+                $(".file-upload").removeClass("active");
+                $("#noFile").text("No file chosen...");
+              } else {
+                $(".file-upload").addClass("active");
+                $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+                  $('#submit-btn').removeClass("waves-effect waves-light disabled");
+              }
+            });
+        </script>
         <p id="demo"></p>
-        <button onclick="doSomething();">Run MATLAB</button>
+        <button id="submit-btn" class="btn indigo waves-effect waves-light disabled" type="submit" name="action" onclick="doSomething();">Submit</button>
     </div>
     <div class="chart">
         <div id="chart_div"></div>
