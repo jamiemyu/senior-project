@@ -1,33 +1,45 @@
-// Load the Visualization API and the corechart package.
-google.charts.load('current', {'packages':['corechart']});
+// Load the current Visualization API and the bar package.
+google.charts.load('current', {'packages':['bar']});
 
-// Set a callback to run when the Google Visualization API is loaded.
-//google.charts.setOnLoadCallback(drawChart);
+/**
+ * Class that handles drawing of charts using the Google Charts API.
+ * TODO(Jamie): change data table population according to MATLAB output.
+ */
 class ChartDrawer {
-    // Callback that creates and populates a data table,
-    // instantiates the pie chart, passes in the data and
-    // draws it.
+    /**
+     * Function used to create and populate a data table, instantiate the column chart,
+     * pass in the data, and draw the chart in the selected div container.
+     * @param {!Array} durationArray The array of duration data to be charted.
+     */
     drawChart(durationArray) {
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Sleep Stage');
-        data.addColumn('number', 'Number of Classified Values');
-        data.addRows([
-          ['N1', parseInt(durationArray[0])],
-          ['N2', parseInt(durationArray[1])],
-          ['N3', parseInt(durationArray[2])],
+        // Callback that creates and populates a data table,
+        // instantiates the column chart, passes in the data and
+        // draws it.
+        var data = google.visualization.arrayToDataTable([
+          ['Stage', 'Duration (Minutes)'],
+          ['N1', Number(durationArray[0])],
+          ['N2', Number(durationArray[1])],
+          ['N3', Number(durationArray[2])],
         ]);
 
-        // Set chart options
         var options = {
-            'width':800,
-            'height':600
+            chart: {
+                title: 'Sleep Stage Classification',
+                subtitle: 'Duration (in Minutes)',
+            },
+            legend: {
+                position: 'none',
+            },
+            vAxis: {
+                minValue: 0,
+                ticks: [0, 50, 100, 150, 200]
+            }
         };
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-    }
+      var chart = new google.charts.Bar(document.getElementById('chart_div')); 
+      
+      chart.draw(data, google.charts.Bar.convertOptions(options));
+   }
 }
 
 module.exports = ChartDrawer;
