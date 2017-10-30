@@ -14,8 +14,8 @@ class DataParser {
      */
 	parseData(data) {
         // Retrieve the index where the function starts outputting to the console.
-		let i = data.indexOf("only.") + 7;
-        
+	let i = data.indexOf("only.") + 7;
+
         let subStr = data.substring(i, data.length - 1);
         let strArr = subStr.split(' ');
         
