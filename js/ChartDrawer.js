@@ -9,34 +9,32 @@ class ChartDrawer {
     /**
      * Function used to create and populate a data table, instantiate the column chart,
      * pass in the data, and draw the chart in the selected div container.
-     * @param {!Array} durationArray The array of duration data to be charted.
+     * @param {!Array<Number>} durationArray The array of duration data to be charted.
      */
     drawChart(durationArray) {
         // Callback that creates and populates a data table,
         // instantiates the column chart, passes in the data and
         // draws it.
-        var data = google.visualization.arrayToDataTable([
+        let data = google.visualization.arrayToDataTable([
           ['Stage', 'Duration (Minutes)'],
-          ['N1', Number(durationArray[0])],
-          ['N2', Number(durationArray[1])],
-          ['N3', Number(durationArray[2])],
+          ['N1', durationArray[0]],
+          ['N2', durationArray[1]],
+          ['N3', durationArray[2]],
         ]);
 
-        var options = {
+        let options = {
+            'width': 600,
+            'height': 225,
             chart: {
-                title: 'Sleep Stage Classification',
-                subtitle: 'Duration (in Minutes)',
+		title: 'Sleep Stage Classification',
+                subtitle: 'Minutes',
             },
             legend: {
                 position: 'none',
             },
-            vAxis: {
-                minValue: 0,
-                ticks: [0, 50, 100, 150, 200]
-            }
         };
 
-      var chart = new google.charts.Bar(document.getElementById('chart_div')); 
+      let chart = new google.charts.Bar(document.getElementById('chart_div')); 
       
       chart.draw(data, google.charts.Bar.convertOptions(options));
    }

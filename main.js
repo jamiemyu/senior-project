@@ -54,25 +54,4 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-let requirejs = require('requirejs');
-let jsdom = require('jsdom');
-let MatlabClient = require('./MatlabClient.js');
-
-const client = new MatlabClient();
-const {JSDOM} = jsdom;
-const {document} = (new JSDOM('<!doctype html><html><body></body></html>')).window;
-global.document = document;
-global.window = document.defaultView;
-
-var $ = require("jquery");
-
-function makeRequest() {
-    client.requestData().then((output) => {
-        console.log("The final output is: " + output);
-    }); 
-}
-
-function myFunction() {
-    document.getElementById("demo").innerHTML = "Hello World";
-}
 

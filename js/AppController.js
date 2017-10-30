@@ -21,6 +21,6 @@ function analyzeFile() {
         document.getElementById('header_div').classList.remove('unloaded'); 
         document.getElementById('header_div').classList.add('loaded'); 
         document.getElementById('chart_div').innerHTML = '';
-        drawer.drawChart(output.split(" "));
+        drawer.drawChart(output);
     })
 }

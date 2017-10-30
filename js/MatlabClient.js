@@ -1,3 +1,4 @@
+const DataParser = require('./DataParser.js');
 const Promise = require('bluebird');
 const exec = require("child_process").exec;
 
@@ -44,12 +45,8 @@ class MatlabClient {
 
             this.promiseFromChildProcess(child).then((result) => {
                 console.log('promise complete: ' + result);
-
-                // Find where the MATLAB output starts.
-                let i = savedData.indexOf("only.");
-                
-                // Only store the MATLAB output substring, ignoring all other outputs
-                resolve(savedData.substring(i+7, savedData.length - 1));
+                let parser = new DataParser();
+		        resolve(parser.parseData(savedData));
             }, 
             (err) => {
                 console.log('promise rejected: ' + err);
