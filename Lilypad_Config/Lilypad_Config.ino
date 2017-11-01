@@ -50,7 +50,7 @@ void loop() {
     myFile.println(val);
     dataPoints++;
   }
-  else if(dataPoints == 250){
+  else if(dataPoints == 250) {
     Serial.println("Number of data points recorded: " + dataPoints);
   }
   // 1/250 seconds = 3750 microseconds
