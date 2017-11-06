@@ -1,9 +1,33 @@
-.chart {
-    margin-top: auto;
-    margin-bottom: auto;
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+h3 {
+    color: white;
+}
+
+h4 {
+    color: #757575;
+}
+
+#header_div {
+    height: 128px;
+    padding: 24px;
+}
+
+.unloaded {
+    background-color: #303F9F;
+}
+
+.loaded {
+    background-color: #4CAF50;
+}
+
+.body_div {
+    padding: 24px;
     text-align: center;
 }
 
-#chart_div {
-    display: inline-block;
+#submit-btn {
+  float: left;
 }

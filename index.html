@@ -6,12 +6,46 @@
     <title>Sleep State Classifier Project</title>
     
     <link rel="stylesheet" type="text/css" href="css/main.css">
-    <!--Load the AJAX API-->
+    <link rel="stylesheet" type="text/css" href="css/chart.css">
+    <link rel="stylesheet" type="text/css" href="css/fileupload.css">
+    <link rel="stylesheet" type="text/css" href="css/loaderbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="js/chart.js"></script>
+    <script type="text/javascript" src="./js/AppController.js"></script>
 </head>
 <body>
-    <div class="chart">
+    <div id="header_div" class="unloaded">
+        <h3>Sleep State Classifier</h3>
+    </div>
+    <div class="body_div">
+        <div id="upload_div">
+            <div id="file-upload" class="file-upload">
+              <div class="file-select">
+                <div class="file-select-button" id="fileName">Choose File</div>
+                <div class="file-select-name" id="noFile">No file chosen...</div> 
+                <input type="file" name="chooseFile" id="chooseFile">
+              </div>
+            </div>
+            <script>
+                $("#chooseFile").bind("change", function() {
+                  let filename = $("#chooseFile").val();
+
+                  if (/^\s*$/.test(filename)) {
+                    $(".file-upload").removeClass("active");
+                    $("#noFile").text("No file chosen...");
+                  } else {
+                    $(".file-upload").addClass("active");
+                    $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+                    $('#submit-btn').removeClass("waves-effect waves-light disabled");
+                  }
+                });
+            </script>
+            <p id="demo"></p>
+            <button id="submit-btn" class="btn indigo waves-effect waves-light disabled" 
+                    type="submit" name="action" onclick="analyzeFile();">Analyze</button>
+        </div>    
         <div id="chart_div"></div>
     </div>
 </body>
