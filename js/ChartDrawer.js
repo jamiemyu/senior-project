@@ -22,7 +22,7 @@ class ChartDrawer {
         ]);
 
         let options = {
-            'width': 600,
+            'width': 300,
             'height': 225,
             chart: {
 		title: 'Sleep Stage Classification',

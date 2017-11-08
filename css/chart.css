@@ -1,4 +1,9 @@
 #chart_div {
-  display: inline-block;
+  display: -webkit-inline-box;
+  margin-right: 32px;
   margin-top: 16px;
+}
+
+h4 {
+    text-align: -webkit-center;
 }
