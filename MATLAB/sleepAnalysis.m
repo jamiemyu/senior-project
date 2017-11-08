@@ -21,10 +21,10 @@
 %% Loading signal data from MIT-BIH slpdb
 
 % Read EEG signal from 18 records (3 = 3rd column).
-[tm,rawData] = rdsamp('slpdb/slp32', 3);
+[tm,rawData] = rdsamp('slpdb/slp02a', 3);
 
 % Read the annotation file. Each value represents a 30 second interval.
-[~,~,~,~,~,comments] = rdann('slpdb/slp32', 'st');
+[~,~,~,~,~,comments] = rdann('slpdb/slp02a', 'st');
 
 % Get the sleep stages only.
 classifierAnnotations = getSleepStages(comments);
@@ -65,7 +65,7 @@ totalAverage1 = zeros(1,length(sleepStage1Index));
 totalAverageRange1 = [0.5 40];
 % Stores average power from 0.5 - 3 Hz
 lowFreqAverage1 = zeros(1,length(sleepStage1Index));
-lowFreqAverageRange1 = [0.5 3];
+lowFreqAverageRange1 = [0.5 2.5];
 % Stores average power from 5 - 15 Hz
 highFreqAverage1 = zeros(1,length(sleepStage1Index));
 highFreqAverageRange1 = [5 15];
