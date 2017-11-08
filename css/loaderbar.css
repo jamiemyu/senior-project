@@ -72,6 +72,7 @@
 
 .progress-bar {
   border-radius: 60px;
+  margin-top: 16px; 
   overflow: hidden;
   width: 100%;
 }
@@ -85,8 +86,8 @@
 }
 
 .progress {
-  -webkit-animation: loader 16s ease infinite;
-          animation: loader 16s ease infinite;
+  -webkit-animation: loader 22s ease infinite;
+          animation: loader 22s ease infinite;
   background-color: #4CAF50;
   color: #fff;
   padding: 5px;
@@ -95,7 +96,6 @@
 
 .progress-bar {
   left: 50%;
-  max-width: 50%;
   position: absolute;
   top: 50%;
   -webkit-transform: translate3d(-50%, -50%, 0);

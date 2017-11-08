@@ -17,9 +17,8 @@ class ChartDrawer {
         // draws it.
         let data = google.visualization.arrayToDataTable([
           ['Stage', 'Duration (Minutes)'],
-          ['N1', durationArray[0]],
-          ['N2', durationArray[1]],
-          ['N3', durationArray[2]],
+          ['Light Sleep', durationArray[0]],
+          ['Deep Sleep', durationArray[1]],
         ]);
 
         let options = {
@@ -27,7 +26,7 @@ class ChartDrawer {
             'height': 225,
             chart: {
 		title: 'Sleep Stage Classification',
-                subtitle: 'Minutes',
+                subtitle: 'Light Sleep vs. Deep Sleep (in Minutes)',
             },
             legend: {
                 position: 'none',

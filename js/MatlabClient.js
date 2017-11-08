@@ -24,7 +24,7 @@ class MatlabClient {
             if (opt_input === undefined) opt_input = '';
             
             // The name of the MATLAB script to execute.
-            const matlabScript = ' test ' + "'" + opt_input + "'; catch; end; quit force"
+            const matlabScript = ' classifierAlgorithm ' + "'" + opt_input + "'; catch; end; quit force"
                                  + '"';
             const args = '-nodisplay -r "try;' + matlabScript;
  

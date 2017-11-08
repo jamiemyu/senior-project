@@ -58,12 +58,6 @@ for i = 1:length(tArr)
         
 end
 
-% Concatenate the output, which is a string representation of the light
-% and deep sleep values.
-output = strcat({num2str(lightSleepCounter)}, {' '}, ...
-                {num2str(deepSleepCounter)});
-            
-% Display the output so that it is recorded in the console.
-disp(output{1});
+disp(getDisplayInfo([lightSleepCounter, deepSleepCounter]));
 end
 
