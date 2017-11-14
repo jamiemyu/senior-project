@@ -69,12 +69,7 @@ for i = 1:length(tArr)
 end
 
 % Display output as 3 integers: awake states, light sleep, deep sleep.
-fprintf('%i %i %i %i\n', wakeCounter, remCounter, lightSleepCounter, deepSleepCounter);
-
-% ////////////////////////////////////////////////////////////
-% JAMIE - UPDATE FUNCTION HERE TO TAKE 4 INPUTS, SHOWN ABOVE
-% ////////////////////////////////////////////////////////////
-disp(getDisplayInfo([lightSleepCounter, deepSleepCounter]));
+disp(getDisplayInfo([wakeCounter, remCounter, lightSleepCounter, deepSleepCounter]));
 
 end
 

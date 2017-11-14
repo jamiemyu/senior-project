@@ -17,8 +17,10 @@ class ChartDrawer {
         // draws it.
         let data = google.visualization.arrayToDataTable([
           ['Stage', 'Duration (Minutes)'],
-          ['Light Sleep', durationArray[0]],
-          ['Deep Sleep', durationArray[1]],
+          ['Wake', durationArray[0]],
+          ['REM', durationArray[1]],
+          ['Light Sleep', durationArray[2]],
+          ['Deep Sleep', durationArray[3]],
         ]);
 
         let options = {
