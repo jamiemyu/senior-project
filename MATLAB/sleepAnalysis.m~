@@ -246,21 +246,21 @@ highFreqPowerRatio4 = highFreqAverage4 ./ totalAverage4;
 sleepStageWIndex = find([classifierAnnotations{:}] == 'W');
 % Initialize variables used in for loop
 % Stores average power using specified cutoff values
-totalAverageW = zeros(1,length(sleepStageWIndex));
-totalAverageRangeW = [0.5 40];
+totalAverage1 = zeros(1,length(sleepStageWIndex));
+totalAverageRange1 = [0.5 40];
 % Stores average power from 0.5 - 3 Hz
-lowFreqAverageW = zeros(1,length(sleepStageWIndex));
-lowFreqAverageRangeW = [1 4];
+lowFreqAverage1 = zeros(1,length(sleepStageWIndex));
+lowFreqAverageRange1 = [0.5 2.5];
 % Stores average power from 5 - 15 Hz
-highFreqAverageW = zeros(1,length(sleepStageWIndex));
-highFreqAverageRangeW = [5 15];
+highFreqAverage1 = zeros(1,length(sleepStageWIndex));
+highFreqAverageRange1 = [5 15];
 % Loop through all sleep stage 1 data
 for i = 1:length(sleepStageWIndex);
     if (sleepStageWIndex(i) <= length(sleepStageWIndex))
         % Load time vector according to indexed window
-        tSleepStageW = tArr{sleepStageWIndex(i)};
+        tSleepStage1 = tArr{sleepStageWIndex(i)};
         % Total timespan of recorded data
-        T0 = length(tSleepStageW)/Fs;
+        T0 = length(tSleepStage1)/Fs;
         % Frequency resolution - determined by T0
         dF = 1/T0;
         % Time vector of sampled data
@@ -268,21 +268,21 @@ for i = 1:length(sleepStageWIndex);
         % Freq data of DFT result
         freq = (-Fs/2:dF:Fs/2 - dF)';
         % Load EEG data in time domain according to indexed window
-        sleepDataStageW = dataIntervals{sleepStageWIndex(i)};
+        sleepDataStageW = dataIntervals{sleepStage1Index(i)};
         % Use Fast Fourier Transform to transform data to frequency domain
-        DataInFreqDomainW = abs(fftshift(fft(sleepDataStageW*dt)));
+        DataInFreqDomain = abs(fftshift(fft(sleepDataStageW*dt)));
         figure;
-        stem(freq, DataInFreqDomainW,'LineWidth',0.5)
+        stem(freq, DataInFreqDomain1,'LineWidth',0.5)
         xlim([0 35])
         title('Stage 1')
         % Save average power of signal in 3 different frequency ranges
-        totalAverageW(i) = mean(DataInFreqDomainW(find(freq == totalAverageRangeW(1)):find(freq == totalAverageRangeW(2))));
-        lowFreqAverageW(i) = mean(DataInFreqDomainW(find(freq == 1):find(freq == 4)));
-        highFreqAverageW(i) = mean(DataInFreqDomainW(find(freq == 5):find(freq == 15)));
+        totalAverage1(i) = mean(DataInFreqDomain1(find(freq == totalAverageRange1(1)):find(freq == totalAverageRange1(2))));
+        lowFreqAverage1(i) = mean(DataInFreqDomain1(find(freq == lowFreqAverageRange1(1)):find(freq == lowFreqAverageRange1(2))));
+        highFreqAverage1(i) = mean(DataInFreqDomain1(find(freq == highFreqAverageRange1(1)):find(freq == highFreqAverageRange1(2))));
     end
 end
 
-freqPowerRatioW = lowFreqAverageW ./ highFreqAverageW;
-highFreqPowerRatioW = highFreqAverageW ./ totalAverageW;
+freqPowerRatio1 = lowFreqAverage1 ./ highFreqAverage1;
+highFreqPowerRatio1 = highFreqAverage1 ./ totalAverage1;
 
 

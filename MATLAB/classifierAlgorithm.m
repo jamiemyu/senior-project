@@ -27,6 +27,10 @@ highFreqAverageRange = [5 15];   % Hz
 lightSleepCounter = 0;
 % Deep sleep counter (stage 3-4)
 deepSleepCounter = 0;
+% REM sleep counter
+remCounter = 0;
+% Wake state counter (wake state)
+wakeCounter = 0;
 
 % Loop through each 30-second window to classify the sleep stage
 for i = 1:length(tArr)
@@ -47,15 +51,21 @@ for i = 1:length(tArr)
     % Calculate average power at high frequency range
     highFreqAverage = mean(dataInFreqDomain(find(freq == highFreqAverageRange(1)):find(freq == highFreqAverageRange(2))));
     
-    if ((lowFreqAverage / highFreqAverage) < 4.8)
+    % Classify based on cutoff values determined by testing 
+    if ((lowFreqAverage / highFreqAverage) <= 4.25 && (lowFreqAverage / highFreqAverage) >= 2.5)
         lightSleepCounter = lightSleepCounter + 1;
-    else
+    elseif ((lowFreqAverage / highFreqAverage) > 4.25)
         deepSleepCounter = deepSleepCounter + 1;
+    elseif ((lowFreqAverage / highFreqAverage) < 2.5 && (lowFreqAverage / highFreqAverage) >= 1.6)
+        remCounter = remCounter + 1;
+    else
+        wakeCounter = wakeCounter + 1;
     end
-        
+    
 end
 
-fprintf('%i %i\n', lightSleepCounter, deepSleepCounter);
+% Display output as 3 integers: awake states, light sleep, deep sleep.
+fprintf('%i %i %i %i\n', wakeCounter, remCounter, lightSleepCounter, deepSleepCounter);
 
 end
 
