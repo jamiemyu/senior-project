@@ -28,7 +28,7 @@ class ChartDrawer {
             'height': 225,
             chart: {
 		title: 'Sleep Stage Classification',
-                subtitle: 'Light Sleep vs. Deep Sleep (in Minutes)',
+                subtitle: 'Time in Sleep Stages (in Minutes)',
             },
             legend: {
                 position: 'none',
