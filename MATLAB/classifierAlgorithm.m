@@ -68,7 +68,8 @@ for i = 1:length(tArr)
     
 end
 
-% Display output as 3 integers: awake states, light sleep, deep sleep.
+% Display output as 4 integers: wake, REM, light sleep, deep sleep.
+% TODO(Jamie): Update this once Justin finishes classifying Stage 1 vs. Stage 2 vs. Stages 3/4.
 disp(getDisplayInfo([wakeCounter, remCounter, lightSleepCounter, deepSleepCounter]));
 
 end
