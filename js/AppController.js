@@ -1,7 +1,3 @@
-LOADER_TEXT = '<h4>Analyzing ...</h4>'
-LOADER_BAR = '<div class="progress-bar"><span class="bar">' + 
-        '<span id="loader" class="progress"></span></span></div>';
-
 /**
  * Action that occurs when the analyze button is clicked. Handles modification of
  * HTML objects and using the client to make the request for data.
@@ -10,8 +6,8 @@ function analyzeFile() {
     let filepath = document.getElementById("chooseFile").files[0].path;
     document.getElementById('file-upload').remove();
     document.getElementById('submit-btn').remove();
-    document.getElementById('chart_div').innerHTML += '<div class="loader_div">' + 
-        LOADER_TEXT + LOADER_BAR + '</div>';
+    document.getElementById('chart_div').innerHTML += '<object type="text/html"' + 
+                                                    ' data="html/chart.html" ></object>';
 
     let MatlabClient = require('./js/MatlabClient.js');
     let ChartDrawer = require('./js/ChartDrawer.js');
