@@ -23,14 +23,18 @@
 
 %% Loading signal data from MIT-BIH slpdb
 
+
 % Read EEG signal from 18 records (3 = 3rd column).
-[tm,rawData] = rdsamp('slpdb/slp02a', 3);
+[tm,rawData] = rdsamp('slpdb/slp14', 3);
 
 % Read the annotation file. Each value represents a 30 second interval.
-[~,~,~,~,~,comments] = rdann('slpdb/slp02a', 'st');
+[~,~,~,~,~,comments] = rdann('slpdb/slp14', 'st');
 
 % Get the sleep stages only.
 classifierAnnotations = getSleepStages(comments);
+
+
+%load('rawData_02a.mat');
 
 %% PRE-PROCESSING
 

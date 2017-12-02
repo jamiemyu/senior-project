@@ -13,10 +13,10 @@ totalAverage = zeros(1, length(sleepStageIndex));
 totalAverageRange = [0.5 40];
 % Stores average power from 1 - 3.5 Hz
 lowFreqAverage = zeros(1,length(sleepStageIndex));
-lowFreqAverageRange = [1 3.5];
+lowFreqAverageRange = [1.5 4.5];
 % Stores average power from 5 - 15 Hz
 highFreqAverage = zeros(1,length(sleepStageIndex));
-highFreqAverageRange = [5 15];
+highFreqAverageRange = [5 12];
 
 % Loop through all data in given sleep stage
 for i = 1:length(sleepStageIndex)
