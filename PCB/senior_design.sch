@@ -8282,9 +8282,6 @@ In this library the device names are the same as the pin names of the symbols, t
 <wire x1="45.72" y1="38.1" x2="45.72" y2="68.58" width="0.1524" layer="91"/>
 <wire x1="45.72" y1="68.58" x2="30.48" y2="68.58" width="0.1524" layer="91"/>
 <junction x="30.48" y="68.58"/>
-<pinref part="R7" gate="G$1" pin="1"/>
-<wire x1="45.72" y1="68.58" x2="73.66" y2="68.58" width="0.1524" layer="91"/>
-<junction x="45.72" y="68.58"/>
 </segment>
 </net>
 <net name="N$4" class="0">
@@ -8342,6 +8339,10 @@ In this library the device names are the same as the pin names of the symbols, t
 <pinref part="R5" gate="G$1" pin="2"/>
 <pinref part="IC3" gate="A" pin="-IN"/>
 <wire x1="55.88" y1="38.1" x2="63.5" y2="38.1" width="0.1524" layer="91"/>
+<pinref part="R7" gate="G$1" pin="1"/>
+<wire x1="73.66" y1="68.58" x2="55.88" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="68.58" x2="55.88" y2="38.1" width="0.1524" layer="91"/>
+<junction x="55.88" y="38.1"/>
 </segment>
 </net>
 <net name="N$11" class="0">
@@ -8390,14 +8391,6 @@ In this library the device names are the same as the pin names of the symbols, t
 <junction x="134.62" y="38.1"/>
 </segment>
 </net>
-<net name="N$15" class="0">
-<segment>
-<pinref part="R11" gate="G$1" pin="2"/>
-<wire x1="149.86" y1="38.1" x2="154.94" y2="38.1" width="0.1524" layer="91"/>
-<pinref part="C2" gate="G$1" pin="1"/>
-<wire x1="154.94" y1="38.1" x2="154.94" y2="33.02" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="N$17" class="0">
 <segment>
 <pinref part="R12" gate="1" pin="A"/>
@@ -8410,7 +8403,7 @@ In this library the device names are the same as the pin names of the symbols, t
 <junction x="30.48" y="35.56"/>
 </segment>
 </net>
-<net name="PE" class="0">
+<net name="VO" class="0">
 <segment>
 <pinref part="R6" gate="G$1" pin="1"/>
 <pinref part="PE1" gate="M" pin="PE"/>
@@ -8486,6 +8479,14 @@ In this library the device names are the same as the pin names of the symbols, t
 <pinref part="IC1" gate="A" pin="V-"/>
 <pinref part="SUPPLY8" gate="1" pin="V-"/>
 <wire x1="12.7" y1="50.8" x2="12.7" y2="60.96" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$9" class="0">
+<segment>
+<pinref part="R11" gate="G$1" pin="2"/>
+<wire x1="149.86" y1="38.1" x2="154.94" y2="38.1" width="0.1524" layer="91"/>
+<pinref part="C2" gate="G$1" pin="1"/>
+<wire x1="154.94" y1="38.1" x2="154.94" y2="33.02" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
