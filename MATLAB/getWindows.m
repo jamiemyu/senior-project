@@ -3,7 +3,7 @@
 % windowDuration is the size of the window
 function [tArr, windowArr] = getWindows(sampleArr, windowDuration, Fs)
 numSamplesPerWindow = Fs * windowDuration;
-numSamples = length(sampleArr) / numSamplesPerWindow;
+numSamples = floor(length(sampleArr) / numSamplesPerWindow);
 
 tArr = cell(1, numSamples);
 windowArr = cell(1, numSamples);
