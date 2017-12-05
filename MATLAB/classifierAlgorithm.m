@@ -51,16 +51,16 @@ for i = 1:length(tArr)
     % Use Fast Fourier Transform to transform data to frequency domain
     dataInFreqDomain = abs(fftshift(fft(sleepData*dt)));
     % Calculate average power at low frequency range
-    lowFreqAverage = mean(dataInFreqDomain(find(freq == lowFreqAverageRange(1)):find(freq == lowFreqAverageRange(2))));
+    lowFreqAverage = (mean(dataInFreqDomain(find(freq == lowFreqAverageRange(1)):find(freq == lowFreqAverageRange(2)))))^2;
     % Calculate average power at high frequency range
-    highFreqAverage = mean(dataInFreqDomain(find(freq == highFreqAverageRange(1)):find(freq == highFreqAverageRange(2))));
+    highFreqAverage = (mean(dataInFreqDomain(find(freq == highFreqAverageRange(1)):find(freq == highFreqAverageRange(2)))))^2;
     
     % Classify based on cutoff values determined by testing 
-    if ((lowFreqAverage / highFreqAverage) <= 4.25 && (lowFreqAverage / highFreqAverage) >= 2.5)
+    if ((lowFreqAverage / highFreqAverage) <= 18.1 && (lowFreqAverage / highFreqAverage) >= 6.25)
         lightSleepCounter = lightSleepCounter + 1;
-    elseif ((lowFreqAverage / highFreqAverage) > 4.25)
+    elseif ((lowFreqAverage / highFreqAverage) > 18.1)
         deepSleepCounter = deepSleepCounter + 1;
-    elseif ((lowFreqAverage / highFreqAverage) < 2.5 && (lowFreqAverage / highFreqAverage) >= 1.6)
+    elseif ((lowFreqAverage / highFreqAverage) < 6.25 && (lowFreqAverage / highFreqAverage) >= 2.56)
         remCounter = remCounter + 1;
     else
         wakeCounter = wakeCounter + 1;
