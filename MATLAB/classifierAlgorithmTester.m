@@ -23,7 +23,7 @@
 
 %% Loading signal data from MIT-BIH slpdb
 
-
+%{
 % Read EEG signal from 18 records (3 = 3rd column).
 [tm,rawData] = rdsamp('slpdb/slp14', 3);
 
@@ -32,9 +32,9 @@
 
 % Get the sleep stages only.
 classifierAnnotations = getSleepStages(comments);
+%}
 
-
-%load('rawData_02a.mat');
+load('rawData_02a.mat');
 
 %% PRE-PROCESSING
 
@@ -53,21 +53,39 @@ windowDuration = 30; % seconds
 
 %% STAGE 1
 
-freqPowerRatio1 = getPowerRatio(1, classifierAnnotations, tArr, dataIntervals);
+[lowFreqAverage1, highFreqAverage1, freqPowerRatio1] = getPowerRatio(1, classifierAnnotations, tArr, dataIntervals);
 
 %% STAGE 2
 
-freqPowerRatio2 = getPowerRatio(2, classifierAnnotations, tArr, dataIntervals);
+[lowFreqAverage2, highFreqAverage2, freqPowerRatio2] = getPowerRatio(2, classifierAnnotations, tArr, dataIntervals);
 
 %% STAGE 3
 
-freqPowerRatio3 = getPowerRatio(3, classifierAnnotations, tArr, dataIntervals);
+[lowFreqAverage3, highFreqAverage3, freqPowerRatio3] = getPowerRatio(3, classifierAnnotations, tArr, dataIntervals);
 
 %% STAGE 4
 
-freqPowerRatio4 = getPowerRatio(4, classifierAnnotations, tArr, dataIntervals);
+[lowFreqAverage4, highFreqAverage4, freqPowerRatio4] = getPowerRatio(4, classifierAnnotations, tArr, dataIntervals);
 
 %% STAGE WAKE
 
-freqPowerRatioW = getPowerRatio('W', classifierAnnotations, tArr, dataIntervals);
+[lowFreqAverageW, highFreqAverageW, freqPowerRatioW] = getPowerRatio('W', classifierAnnotations, tArr, dataIntervals);
+
+%% DISPLAY RESULTS
+length1 = length(freqPowerRatio1);
+length2 = length(freqPowerRatio2);
+length3 = length(freqPowerRatio3);
+length4 = length(freqPowerRatio4);
+lengthW = length(freqPowerRatioW);
+
+figure;
+scatter(1:length1, freqPowerRatio1, 'k');
+hold on
+scatter((length1 + 1):(length1 + length2), freqPowerRatio2, 'r');
+hold on
+scatter((length1 + length2 + 1):(length1 + length2 + length3), freqPowerRatio3, 'k');
+hold on
+scatter((length1 + length2 + length3 + 1):(length1 + length2 + length3 + length4), freqPowerRatio4, 'b');
+hold on
+scatter((length1 + length2 + length3 + length4 + 1):(length1 + length2 + length3 + length4 + lengthW), freqPowerRatioW, 'k');
 

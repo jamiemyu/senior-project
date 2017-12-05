@@ -6,8 +6,8 @@ Wp = passBand / (Fs/2);
 Ws = [(passBand(1) - 0.3), (passBand(2) + 2)] / (Fs/2);
 
 % Specify max 3 dB passband ripple, min 40 dB attenuation in stopbands.
-Rp = 3;
-Rs = 40;
+Rp = 5;
+Rs = 20;
 
 [n, Wn] = buttord(Wp, Ws, Rp, Rs);
 [z, p, k] = butter(n, Wn, 'bandpass');

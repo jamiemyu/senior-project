@@ -56,14 +56,14 @@ for i = 1:length(tArr)
     highFreqAverage = (mean(dataInFreqDomain(find(freq == highFreqAverageRange(1)):find(freq == highFreqAverageRange(2)))))^2;
     
     % Classify based on cutoff values determined by testing 
-    if ((lowFreqAverage / highFreqAverage) <= 18.1 && (lowFreqAverage / highFreqAverage) >= 6.25)
+    if ((lowFreqAverage / highFreqAverage) <= 14.1 && (lowFreqAverage / highFreqAverage) >= 6.55)
         lightSleepCounter = lightSleepCounter + 1;
-    elseif ((lowFreqAverage / highFreqAverage) > 18.1)
+    elseif ((lowFreqAverage / highFreqAverage) > 14.1)
         deepSleepCounter = deepSleepCounter + 1;
     elseif ((lowFreqAverage / highFreqAverage) < 6.25 && (lowFreqAverage / highFreqAverage) >= 2.56)
-        remCounter = remCounter + 1;
-    else
         wakeCounter = wakeCounter + 1;
+    else
+        remCounter = remCounter + 1;
     end
     
 end
