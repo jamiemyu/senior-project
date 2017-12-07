@@ -3,7 +3,12 @@
  * HTML objects and using the client to make the request for data.
  */
 function analyzeFile() {
-    let filepath = document.getElementById("chooseFile").files[0].path;
+    let filePath = document.getElementById("chooseFile").files[0].path;
+    let extensionIndex = filePath.lastIndexOf(".");
+    if (!filePath.substring(extensionIndex+1, filePath.length) !== "txt") {
+        alert("Invalid file format. Please upload text files only.");
+        return;
+    }
     document.getElementById('file-upload').remove();
     document.getElementById('submit-btn').remove();
     document.getElementById('chart_div').innerHTML += '<object type="text/html"' + 
@@ -12,7 +17,7 @@ function analyzeFile() {
     let MatlabClient = require('./js/MatlabClient.js');
     let ChartDrawer = require('./js/ChartDrawer.js');
     const client = new MatlabClient();
-    client.requestData(filepath).then((output) => {
+    client.requestData(filePath).then((output) => {
         const drawer = new ChartDrawer();
         document.getElementById('header_div').classList.remove('unloaded'); 
         document.getElementById('header_div').classList.add('loaded'); 

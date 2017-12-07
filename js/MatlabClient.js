@@ -13,21 +13,18 @@ const exec = require("child_process").exec;
 class MatlabClient {
     /**
      * Function used to call a MATLAB executable.
-     * @param {!String} opt_input An input parameter to send to MATLAB to execute
-     *     the function appropriately.
+     * @param {!String} filePath The file path to give to MATLAB. 
      * @return {!Promise} A promise indicating success of MATLAB script execution.
      *     Contains the output data.
      */
-    requestData(opt_input) {
+    requestData(filePath) {
         return new Promise((resolve, reject) => {
             const path = '/Applications/MATLAB_R2016b.app/bin/matlab';
-            if (opt_input === undefined) opt_input = '';
-            
             // The name of the MATLAB script to execute.
-            const matlabScript = ' classifierAlgorithm ' + "'" + opt_input + "'; catch; end; quit force"
+            const matlabScript = ' classifierAlgorithm ' + "'" + filePath + "'; catch; end; quit force"
                                  + '"';
             const args = '-nodisplay -r "try;' + matlabScript;
- 
+
             const child = exec(path + ' ' + args);
             let savedData = "";
 
@@ -47,13 +44,14 @@ class MatlabClient {
             this.promiseFromChildProcess(child).then((result) => {
                 console.log('promise complete: ' + result);
                 let parser = new DataParser();
-		        resolve(parser.parseData(savedData));
+                        resolve(parser.parseData(savedData));
             }, 
             (err) => {
                 console.log('promise rejected: ' + err);
                 reject(err);
             });
         });
+        
     }
 
 
