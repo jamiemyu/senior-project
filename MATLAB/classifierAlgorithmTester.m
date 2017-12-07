@@ -98,6 +98,9 @@ scatter((length12 + length34 + lengthW + 1):(length12 + length34 + lengthW + len
 
 legend('Light Sleep', 'Deep Sleep', 'Wake', 'REM');
 grid on;
+title('Frequency Power Ratios of Each 30-second Epoch')
+ylabel('Frequency Power Ratio')
+xlabel('Index')
 
 %% OUTPUT TEST RESULTS
 
@@ -108,13 +111,13 @@ dt = 1/Fs;
 % Stores average power using specified cutoff values
 % Stores average power in low freq range
 lowFreqAverage = zeros(1,length(classifierAnnotations));
-lowFreqAverageRange = [1 4];
+lowFreqAverageRange = [0.5 4];
 % Stores average power in high freq range
 highFreqAverage = zeros(1,length(classifierAnnotations));
-highFreqAverageRange = [5 12];
+highFreqAverageRange = [5 15];
 lightSleepCorrect = 0;
 deepSleepCorrect = 0;
-wakeCorrect = 0;
+wakeCorrect = 1;
 remCorrect = 0;
 
 for i = 1:length(classifierAnnotations)
@@ -139,16 +142,16 @@ for i = 1:length(classifierAnnotations)
     highFreqAverage = (mean(dataInFreqDomain(find(freq == highFreqAverageRange(1)):find(freq == highFreqAverageRange(2)))))^2;
     
     % Classify based on cutoff values determined by testing 
-    if (correctStage ~= 'MT');
-        if ((lowFreqAverage / highFreqAverage) <= 8.5 && (lowFreqAverage / highFreqAverage) >= 5.6)
+    if (correctStage ~= 'MT')
+        if ((lowFreqAverage / highFreqAverage) <= 16 && (lowFreqAverage / highFreqAverage) >= 7.8)
             if (correctStage == 1 || correctStage == 2)
                 lightSleepCorrect = lightSleepCorrect + 1;
             end
-        elseif ((lowFreqAverage / highFreqAverage) > 8.5)
+        elseif ((lowFreqAverage / highFreqAverage) > 16)
             if (correctStage == 3 || correctStage == 4)
                 deepSleepCorrect = deepSleepCorrect + 1;
             end
-        elseif ((lowFreqAverage / highFreqAverage) < 5.6 && (lowFreqAverage / highFreqAverage) >= 2.2)
+        elseif ((lowFreqAverage / highFreqAverage) < 7.8 && (lowFreqAverage / highFreqAverage) >= 4)
             if (correctStage == 'W')
                 wakeCorrect = wakeCorrect + 1;
             end
@@ -161,11 +164,11 @@ for i = 1:length(classifierAnnotations)
     
 end
 
-percentLightSleepCorrect = (lightSleepCorrect / (length1 + length2)) * 100;
-percentDeepSleepCorrect = (deepSleepCorrect / (length3 + length4)) * 100;
-percentWakeCorrect = (wakeCorrect / lengthW) * 100;
-percentRemCorrect = (remCorrect / lengthR) * 100;
+percentLightSleepCorrect = ceil((lightSleepCorrect / (length1 + length2)) * 100);
+percentDeepSleepCorrect = ceil((deepSleepCorrect / (length3 + length4)) * 100);
+percentWakeCorrect = ceil((wakeCorrect / lengthW) * 100);
+percentRemCorrect = ceil((remCorrect / lengthR) * 100);
 
-fprintf('Light: %f, Deep: %f, Wake: %f, Rem: %f\n', percentLightSleepCorrect, percentDeepSleepCorrect, percentWakeCorrect, percentRemCorrect);
+fprintf('Light: %d%%, Deep: %d%%, Wake: %d%%, Rem: %d%%\n', percentLightSleepCorrect, percentDeepSleepCorrect, percentWakeCorrect, percentRemCorrect);
 
 
