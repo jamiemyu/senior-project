@@ -82,21 +82,26 @@ length2 = length(freqPowerRatio2);
 length12 = length1 + length2;
 length3 = length(freqPowerRatio3);
 length4 = length(freqPowerRatio4);
-length34 = length3 + length4;
+length34 = length3 + length
 lengthW = length(freqPowerRatioW);
 lengthR = length(freqPowerRatioR);
-totalLength = length12 + length34 + lengthW + lengthR;
+totalLength = length1 + length2 + length3 + length4 + lengthW + lengthR;
 
 figure;
 scatter(1:length12, [freqPowerRatio1 freqPowerRatio2], 'k');
 hold on
-scatter((length12 + 1):(length12 + length34), [freqPowerRatio3 freqPowerRatio4], 'r');
+scatter((length12 + 1):(length12 + length34), [freqPowerRatio3 freqPowerRatio4, 'r');
 hold on
-scatter((length12 + length34 + 1):(length12 + length34 + lengthW), freqPowerRatioW, 'b');
+scatter((length12 + length34 + 1):(length12 + length34 + length3), freqPowerRatio3, 'b');
 hold on
-scatter((length12 + length34 + lengthW + 1):(length12 + length34 + lengthW + lengthR), freqPowerRatioR, 'm');
+scatter((length1 + length2 + length3 + 1):(length1 + length2 + length3 + length4), freqPowerRatio4, 'm');
+hold on
+scatter((length1 + length2 + length3 + length4 + 1):(length1 + length2 + length3 + length4 + lengthW), freqPowerRatioW, 'c');
+hold on
+scatter((length1 + length2 + length3 + length4 + lengthW + 1):(length1 + length2 + length3 + length4 + lengthW + lengthR), freqPowerRatioR, 'k');
 
-legend('Light Sleep', 'Deep Sleep', 'Wake', 'REM');
+
+legend('Stage 1', 'Stage 2', 'Stage 3', 'Stage 4', 'Wake', 'REM');
 grid on;
 
 %% OUTPUT TEST RESULTS
@@ -144,7 +149,7 @@ for i = 1:length(classifierAnnotations)
             if (correctStage == 1 || correctStage == 2)
                 lightSleepCorrect = lightSleepCorrect + 1;
             end
-        elseif ((lowFreqAverage / highFreqAverage) > 8.5)
+        elseif ((lowFreqAverage / highFreqAverage) > 14.1)
             if (correctStage == 3 || correctStage == 4)
                 deepSleepCorrect = deepSleepCorrect + 1;
             end
