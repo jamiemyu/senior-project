@@ -11,10 +11,10 @@ sleepStageIndex = find([classifierAnnotations{:}] == stage);
 % Stores average power using specified cutoff values
 % Stores average power from 1 - 3.5 Hz
 lowFreqAverage = zeros(1,length(sleepStageIndex));
-lowFreqAverageRange = [1 4];
+lowFreqAverageRange = [0.5 4];
 % Stores average power from 5 - 15 Hz
 highFreqAverage = zeros(1,length(sleepStageIndex));
-highFreqAverageRange = [5 12];
+highFreqAverageRange = [5 15];
 
 % Loop through all data in given sleep stage
 for i = 1:length(sleepStageIndex)

@@ -23,7 +23,7 @@ windowDuration = 30; % seconds
 
 
 % Frequency range to extract low freq power.
-lowFreqAverageRange = [0.5 2.5]; % Hz
+lowFreqAverageRange = [0.5 4]; % Hz
 % Frequency range to extract high freq power
 highFreqAverageRange = [5 15];   % Hz
 
@@ -56,11 +56,11 @@ for i = 1:length(tArr)
     highFreqAverage = (mean(dataInFreqDomain(find(freq == highFreqAverageRange(1)):find(freq == highFreqAverageRange(2)))))^2;
     
     % Classify based on cutoff values determined by testing 
-    if ((lowFreqAverage / highFreqAverage) <= 8.5 && (lowFreqAverage / highFreqAverage) >= 5.6)
+    if ((lowFreqAverage / highFreqAverage) <= 16 && (lowFreqAverage / highFreqAverage) >= 7.8)
         lightSleepCounter = lightSleepCounter + 1;
-    elseif ((lowFreqAverage / highFreqAverage) > 14.1)
+    elseif ((lowFreqAverage / highFreqAverage) > 16)
         deepSleepCounter = deepSleepCounter + 1;
-    elseif ((lowFreqAverage / highFreqAverage) < 5.6 && (lowFreqAverage / highFreqAverage) >= 2.2)
+    elseif ((lowFreqAverage / highFreqAverage) < 7.8 && (lowFreqAverage / highFreqAverage) >= 4)
         wakeCounter = wakeCounter + 1;
     else
         remCounter = remCounter + 1;
@@ -69,7 +69,6 @@ for i = 1:length(tArr)
 end
 
 % Display output as 4 integers: wake, REM, light sleep, deep sleep.
-% TODO(Jamie): Update this once Justin finishes classifying Stage 1 vs. Stage 2 vs. Stages 3/4.
 disp(getDisplayInfo([wakeCounter, remCounter, lightSleepCounter, deepSleepCounter]));
 
 end
