@@ -4,8 +4,9 @@
  */
 function analyzeFile() {
     let filePath = document.getElementById("chooseFile").files[0].path;
+  
     let extensionIndex = filePath.lastIndexOf(".");
-    if (!filePath.substring(extensionIndex+1, filePath.length) !== "txt") {
+    if (filePath.substring(extensionIndex+1, filePath.length) !== "txt") {
         alert("Invalid file format. Please upload text files only.");
         return;
     }
