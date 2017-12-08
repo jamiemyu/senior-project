@@ -98,9 +98,9 @@ scatter((length12 + length34 + lengthW + 1):(length12 + length34 + lengthW + len
 
 legend('Light Sleep', 'Deep Sleep', 'Wake', 'REM');
 grid on;
-title('Frequency Power Ratios of Each 30-second Epoch')
-ylabel('Frequency Power Ratio')
-xlabel('Index')
+title('Frequency Power Ratios of Each 30-second Epoch', 'FontSize', 18)
+ylabel('Frequency Power Ratio', 'FontSize', 16)
+xlabel('Index', 'FontSize', 16)
 
 %% OUTPUT TEST RESULTS
 
