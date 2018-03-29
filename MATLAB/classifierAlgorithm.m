@@ -21,21 +21,19 @@ windowDuration = 30; % seconds
 % Split the entire EEG signal recording into 30 second recordings.
 [tArr, dataIntervals] = getWindows(filteredData, windowDuration, Fs);
 
-
 % Frequency range to extract low freq power.
 lowFreqAverageRange = [0.5 4]; % Hz
 % Frequency range to extract high freq power
 highFreqAverageRange = [5 15];   % Hz
 
-% Light sleep counter (stage 1-2)
-lightSleepCounter = 0;
-% Deep sleep counter (stage 3-4)
-deepSleepCounter = 0;
-% REM sleep counter
-remCounter = 0;
-% Wake state counter (wake state)
-wakeCounter = 0;
 
+% Initialize counters
+lightCounter = 0;
+deepCounter = 0;
+wakeCounter = 0;
+remCounter = 0;
+
+classificationArr = zeros(1, length(tArr));
 % Loop through each 30-second window to classify the sleep stage
 for i = 1:length(tArr)
     % Load time vector according to indexed window
@@ -56,20 +54,24 @@ for i = 1:length(tArr)
     highFreqAverage = (mean(dataInFreqDomain(find(freq == highFreqAverageRange(1)):find(freq == highFreqAverageRange(2)))))^2;
     
     % Classify based on cutoff values determined by testing 
-    if ((lowFreqAverage / highFreqAverage) <= 16 && (lowFreqAverage / highFreqAverage) >= 7.8)
-        lightSleepCounter = lightSleepCounter + 1;
-    elseif ((lowFreqAverage / highFreqAverage) > 16)
-        deepSleepCounter = deepSleepCounter + 1;
-    elseif ((lowFreqAverage / highFreqAverage) < 7.8 && (lowFreqAverage / highFreqAverage) >= 4)
-        wakeCounter = wakeCounter + 1;
-    else
-        remCounter = remCounter + 1;
-    end
     
+    % MAP:
+    % Deep = 1
+    % Light = 2
+    % REM = 3
+    % Wake = 4
+    if ((lowFreqAverage / highFreqAverage) <= 16 && (lowFreqAverage / highFreqAverage) >= 7.8)
+        classificationArr(i) = 2;
+    elseif ((lowFreqAverage / highFreqAverage) > 16)
+        classificationArr(i) = 1;
+    elseif ((lowFreqAverage / highFreqAverage) < 7.8 && (lowFreqAverage / highFreqAverage) >= 4)
+        classificationArr(i) = 4;
+    else
+        classificationArr(i) = 3;
+    end
 end
 
-% Display output as 4 integers: wake, REM, light sleep, deep sleep.
-disp(getDisplayInfo([wakeCounter, remCounter, lightSleepCounter, deepSleepCounter]));
+disp(num2str(classificationArr));
 
 end
 

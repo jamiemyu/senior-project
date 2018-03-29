@@ -1,37 +1,79 @@
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #e5e5e5;
 }
 
 h3 {
     color: white;
 }
 
-h4 {
-    color: #757575;
+h4, h5 {
+    color: #718792;
 }
 
-#stats_div {
-    display: -webkit-inline-box;
+h5 {
+    text-align: left;
 }
 
-#header_div {
-    height: 128px;
-    padding: 24px;
+.btn {
+    text-transform: none;
 }
 
-.unloaded {
-    background-color: #303F9F;
+.material-icons {
+    padding-right: 8px;
 }
 
 .loaded {
-    background-color: #4CAF50;
+    margin-top: 0px;
 }
 
-.body_div {
-    padding: 24px;
+.stats_title {
+    color: #1c313a;
+    font-size: 16px;
+}
+
+.unloaded {
+    margin-top: 100px;
+}
+
+#body_div {
+    padding-left: 24px;
+    padding-right: 24px;
     text-align: center;
+    width: 100%;
+}
+
+#restart_div {
+    display: flex;
+    margin-left: 16px;
+    visibility: hidden;
+}
+
+#stats_div {
+    display: inline-block;
 }
 
 #submit-btn {
-  float: left;
+    display: flex;
+    float: left;
+    margin-top: 16px;
+    text-transform: none;
+}
+
+#timeline_chart_div {
+    margin: 0 auto;
+    margin-bottom: 32px;
+    position: relative;
+}
+
+#pie_chart_div {
+    display: inline-block;
+    float: left;
+    margin-left: 32px;
+    position: relative;
+    text-align: left;
+}
+
+#stats_div {
+    
 }

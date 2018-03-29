@@ -21,7 +21,8 @@
     "webpack": "^3.8.1"
   },
   "dependencies": {
-    "blubird": "0.0.1-security"
+    "blubird": "0.0.1-security",
+    "moment": "^2.14.1"
   },
   "node": {
     "child_process": "empty"

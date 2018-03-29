@@ -1,17 +1,20 @@
 /* CSS Styling for the file upload bar on the pre-analysis page. */
 .file-upload {
   display: block;
-  text-align: center;
   font-size: 16px;
+  margin-left: 175px;
+  margin-right: 175px;
+  text-align: center;
+  width: 500px;
 }
 
 .file-upload .file-select {
   display: block;
-  border: 2px solid #C5CAE9;
+  border: 2px solid #455A64;
   border-radius: 2px;
   color: #9F9F9F;
   cursor: pointer;
-  height: 40px;
+  height: 44px;
   line-height: 40px;
   text-align: left;
   background: #ffffff;
@@ -20,7 +23,8 @@
 }
 
 .file-upload .file-select .file-select-button {
-  background: #C5CAE9;
+  background: #455A64;
+  color: #FFFFFF;
   padding: 0 10px;
   display: inline-block;
   height: 40px;
@@ -34,7 +38,7 @@
 }
 
 .file-upload .file-select:hover {
-  border-color: #283593;
+  border-color: #242f40;
   transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
@@ -42,7 +46,7 @@
 }
 
 .file-upload .file-select:hover .file-select-button {
-  background: #283593;
+  background: #242f40;
   color: #ffffff;
   transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
@@ -51,7 +55,7 @@
 }
 
 .file-upload.active .file-select {
-  border-color: #3fa46a;
+  border-color: #543332;
   transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
@@ -59,7 +63,7 @@
 }
 
 .file-upload.active .file-select .file-select-button {
-  background: #4CAF50;
+  background: #543332;
   color: #ffffff;
   transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
