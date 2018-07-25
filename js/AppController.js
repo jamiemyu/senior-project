@@ -35,7 +35,7 @@ function analyzeFile() {
         let sleepTotals = parser.getTotals(output);
         
         // Retrieve modes from output data.
-        n = 30; // Find the mode of every (15 min = 2 * 15 30-s intervals)
+        n = 10; // Find the mode of every (5 min = 2 * 5 30-s intervals)
         let timelineModes = parser.getModes(output, n);
         let timelineObjects = parser.getTimelineObjects(timelineModes);
  

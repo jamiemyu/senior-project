@@ -62,7 +62,7 @@ class ChartDrawer {
             data.addRow([{v: time, f: timeFormatted}, object]);
             i++;
         });
-        const numHours = Math.floor(timelineObjects.length / 4) - 1;
+        const numHours = Math.floor(timelineObjects.length / ((60 / n) * 2)) - 1;
         let hours = [];
         for (let i = 1; i <= numHours; i++) {
             hours[i - 1] = {v: 60 * i, f: 60 * i};
